@@ -1,0 +1,3 @@
+# index.html and vercel.json are hashed together for the Content-Security-Policy, so keep LF everywhere
+index.html text eol=lf
+vercel.json text eol=lf
