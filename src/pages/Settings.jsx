@@ -10,6 +10,9 @@ import { normalizeTask } from "../state/tasks.js";
 import { demoTasks } from "../data/seed.js";
 import { todayIso } from "../lib/dates.js";
 
+const MAX_IMPORT_BYTES = 5 * 1024 * 1024;
+const MAX_IMPORT_TASKS = 5000;
+
 function Row({ label, hint, htmlFor, children }) {
   return (
     <div className="set-row">
@@ -54,11 +57,19 @@ export default function Settings() {
     const chosen = event.target.files?.[0];
     event.target.value = "";
     if (!chosen) return;
+    // A real export is a few hundred kilobytes; refuse anything huge rather than freeze the tab
+    if (chosen.size > MAX_IMPORT_BYTES) {
+      toast(t("set.importFailed"));
+      return;
+    }
     try {
       const data = JSON.parse(await chosen.text());
       const list = Array.isArray(data) ? data : data.tasks;
       if (!Array.isArray(list)) throw new Error("not a task list");
-      const imported = list.filter((x) => x && typeof x === "object" && x.title).map((x) => normalizeTask(x));
+      const imported = list
+        .slice(0, MAX_IMPORT_TASKS)
+        .filter((x) => x && typeof x === "object" && x.title)
+        .map((x) => normalizeTask(x));
       if (!imported.length) throw new Error("empty");
       // Imported tasks join the list; ones with the same id replace the old copy
       const ids = new Set(imported.map((x) => x.id));

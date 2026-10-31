@@ -1,6 +1,6 @@
 // Modal pieces built on the native <dialog>, which handles focus trapping and Escape:
 // a confirm dialog, the toasts, the quick add window and the keyboard shortcuts list.
-import { useEffect, useRef } from "react";
+import { useEffect, useId, useRef } from "react";
 import { CircleCheck, X } from "lucide-react";
 import QuickAdd from "./QuickAdd.jsx";
 import { Kbd } from "./bits.jsx";
@@ -20,10 +20,12 @@ export function useModal(open) {
 
 export function Dialog({ open, onClose, title, children, actions, className = "" }) {
   const ref = useModal(open);
+  // Several dialogs can be on a page at once, so each title gets its own id
+  const titleId = useId();
   return (
-    <dialog ref={ref} className={`dialog ${className}`} aria-labelledby="dialog-title" onClose={onClose} onClick={(e) => e.target === ref.current && onClose()}>
+    <dialog ref={ref} className={`dialog ${className}`} aria-labelledby={titleId} onClose={onClose} onClick={(e) => e.target === ref.current && onClose()}>
       <div className="dialog-body">
-        <h2 id="dialog-title">{title}</h2>
+        <h2 id={titleId}>{title}</h2>
         {children}
         {actions && <div className="dialog-actions">{actions}</div>}
       </div>
