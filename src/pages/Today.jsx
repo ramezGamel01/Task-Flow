@@ -38,12 +38,13 @@ function OrbitFallback({ planets }) {
 }
 
 function Section({ title, count, tone, action, children }) {
+  const { f } = useI18n();
   return (
     <section className={`plan-section ${tone ? `tone-${tone}` : ""}`}>
       <header className="plan-head">
         <h2>
           {title}
-          <span className="plan-count">{count}</span>
+          <span className="plan-count">{f.number(count)}</span>
         </h2>
         {action}
       </header>

@@ -49,7 +49,7 @@ function useFilters() {
 }
 
 export default function List() {
-  const { t } = useI18n();
+  const { t, f } = useI18n();
   const { tasks, dispatch } = useTasks();
   const { filters, set, reset } = useFilters();
   const [confirm, setConfirm] = useState(false);
@@ -170,7 +170,7 @@ export default function List() {
                 <h2 style={g.cat ? { "--cat": `var(--cat-${g.cat})` } : undefined}>
                   {g.cat && <i className="dot" aria-hidden="true" />}
                   {g.title}
-                  <span className="plan-count">{g.items.length}</span>
+                  <span className="plan-count">{f.number(g.items.length)}</span>
                 </h2>
               </header>
             )}

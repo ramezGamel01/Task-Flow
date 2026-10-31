@@ -194,7 +194,7 @@ export default function Calendar() {
             <header className="plan-head">
               <h2>
                 {f.longDay(selected)}
-                <span className="plan-count">{selectedTasks.length}</span>
+                <span className="plan-count">{f.number(selectedTasks.length)}</span>
               </h2>
             </header>
             {selectedTasks.length ? (
@@ -213,7 +213,7 @@ export default function Calendar() {
             <header className="plan-head">
               <h2>
                 {t("cal.noDate")}
-                <span className="plan-count">{undated.length}</span>
+                <span className="plan-count">{f.number(undated.length)}</span>
               </h2>
             </header>
             {undated.length ? (

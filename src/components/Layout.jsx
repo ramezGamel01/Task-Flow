@@ -64,7 +64,7 @@ function FocusPill() {
 }
 
 function Sidebar() {
-  const { t, lang, setLang } = useI18n();
+  const { t, f, lang, setLang } = useI18n();
   const { theme, setTheme, setOverlay } = useApp();
   const counts = useCounts();
   return (
@@ -89,7 +89,7 @@ function Sidebar() {
           <NavLink key={to} to={to} end viewTransition className="side-link">
             <Icon size={18} aria-hidden="true" />
             <span>{t(key)}</span>
-            {counts[to] > 0 && <span className="side-count">{counts[to]}</span>}
+            {counts[to] > 0 && <span className="side-count">{f.number(counts[to])}</span>}
           </NavLink>
         ))}
         <p className="side-title">{t("nav.categories")}</p>
@@ -97,7 +97,7 @@ function Sidebar() {
           <Link key={c} to={`/list?category=${c}`} viewTransition className="side-link side-cat" style={{ "--cat": `var(--cat-${c})` }}>
             <i className="dot" aria-hidden="true" />
             <span>{t(`cat.${c}`)}</span>
-            {counts.categories[c] > 0 && <span className="side-count">{counts.categories[c]}</span>}
+            {counts.categories[c] > 0 && <span className="side-count">{f.number(counts.categories[c])}</span>}
           </Link>
         ))}
       </nav>

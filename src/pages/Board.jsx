@@ -48,7 +48,7 @@ function Card({ task, today, onPointerDown, onKeyDown }) {
 }
 
 export default function Board() {
-  const { t, dir } = useI18n();
+  const { t, f, dir } = useI18n();
   const { tasks, move } = useTasks();
   const [filter, setFilter] = useState("all");
   const [adding, setAdding] = useState(null);
@@ -180,7 +180,7 @@ export default function Board() {
                 <h2 id={`col-${status}`}>
                   <i className={`status-dot status-${status}`} aria-hidden="true" />
                   {t(`status.${status}`)}
-                  <span className="plan-count">{items.length}</span>
+                  <span className="plan-count">{f.number(items.length)}</span>
                 </h2>
                 <button type="button" className="icon-btn icon-btn-sm" onClick={() => setAdding(adding === status ? null : status)} aria-label={t("board.add", { status: t(`status.${status}`) })} aria-expanded={adding === status}>
                   {adding === status ? <X size={16} /> : <Plus size={16} />}
