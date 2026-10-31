@@ -9,7 +9,7 @@ import {
   Plus,
   ArrowRight,
 } from "lucide-react";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { StatsCard } from "@/components/stats-card";
 import { TaskCard } from "@/components/task-card";
 import { EmptyState } from "@/components/empty-state";
@@ -48,8 +48,13 @@ function Index() {
     [tasks],
   );
 
-  const hour = new Date().getHours();
-  const greeting = hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
+  // The greeting depends on the visitor's clock, so it is set after hydration
+  // to keep the server and client markup identical.
+  const [greeting, setGreeting] = useState("Welcome back");
+  useEffect(() => {
+    const hour = new Date().getHours();
+    setGreeting(hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening");
+  }, []);
 
   return (
     <div className="mx-auto w-full max-w-7xl space-y-8 p-4 sm:p-6 lg:p-8">
