@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>TaskFlow — Plan the day</title>
+    <meta name="description" content="A task manager that shows your day as a 3D orbit, with a board, a calendar, insights and quick add that understands plain English and Arabic. Built with React and three.js." />
+    <meta name="theme-color" content="#f5f3fc" />
+    <meta property="og:title" content="TaskFlow — Plan the day" />
+    <meta property="og:description" content="Your day as a 3D orbit, a drag-and-drop board, a calendar and quick add in English and Arabic." />
+    <meta property="og:image" content="https://task-flow-alpha-navy.vercel.app/og-image.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <script>
+      // Apply the saved language and theme before the first paint
+      (function () {
+        try {
+          var d = document.documentElement;
+          if (localStorage.getItem("taskflow:lang") === "ar") { d.lang = "ar"; d.dir = "rtl"; }
+          var theme = localStorage.getItem("taskflow:theme");
+          if (theme === "dark" || (!theme && matchMedia("(prefers-color-scheme: dark)").matches)) d.dataset.theme = "dark";
+          if (localStorage.getItem("taskflow:motion") === "off") d.classList.add("no-motion");
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>TaskFlow needs JavaScript to run.</noscript>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
