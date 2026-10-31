@@ -1,5 +1,7 @@
 # TaskFlow
 
+[![CI](https://github.com/ramezGamel01/Task-Flow/actions/workflows/ci.yml/badge.svg)](https://github.com/ramezGamel01/Task-Flow/actions/workflows/ci.yml)
+
 A task manager for planning your day: add tasks with a due date, priority and category, then filter, sort and track your progress.
 
 **Live:** https://task-flow-alpha-navy.vercel.app
